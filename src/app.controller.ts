@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
 import { AppService, IronmanService } from './app.service';
 
 @Controller()
@@ -47,5 +47,13 @@ export class WeaponController {
   @Get(':name')
   getName(@Param('name') weaponName: string) {
     return `weapon name ${weaponName}`;
+  }
+}
+// Query Param
+@Controller()
+export class WeaponSearch {
+  @Get('search')
+  searchWeapons(@Query() query: { type: string; limit: number }) {
+    return `Searching type ${query.type} with limit ${query.limit}`;
   }
 }

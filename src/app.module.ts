@@ -3,6 +3,7 @@ import {
   AppController,
   HeroController,
   WeaponController,
+  WeaponSearch,
 } from './app.controller';
 import { AppService, IronmanService } from './app.service';
 import { IronManController } from './/app.controller';
@@ -16,6 +17,7 @@ import { IronManSuitController } from './app.controller';
     IronManSuitController,
     HeroController,
     WeaponController,
+    WeaponSearch,
   ],
   providers: [AppService, IronmanService],
 })
