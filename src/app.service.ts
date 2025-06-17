@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Param } from '@nestjs/common';
 import { hrtime } from 'process';
 
 @Injectable()
@@ -11,5 +11,11 @@ export class AppService {
 export class IronmanService {
   getStatus(): string {
     return `The suit is ready`;
+  }
+}
+@Injectable()
+export class WeaponService {
+  getWeaponParam(name: string) {
+    return `you requested the weapon:${name}`;
   }
 }

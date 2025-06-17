@@ -1,5 +1,5 @@
 import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
-import { AppService, IronmanService } from './app.service';
+import { AppService, IronmanService, WeaponService } from './app.service';
 import { CreateHeroDto } from './create-hero.dto';
 
 @Controller()
@@ -41,6 +41,7 @@ export class HeroController {
 }
 @Controller('weapons')
 export class WeaponController {
+  constructor(private readonly weaponservice: WeaponService) {}
   @Post()
   createWeapon(@Body() body: { name: string; damage: number }) {
     return `Created weapon ${body.name} with damage ${body.damage}`;
@@ -56,5 +57,13 @@ export class WeaponSearch {
   @Get('search')
   searchWeapons(@Query() query: { type: string; limit: number }) {
     return `Searching type ${query.type} with limit ${query.limit}`;
+  }
+}
+@Controller('weapon')
+export class WeaponControll {
+  constructor(private readonly weaponservice: WeaponService) {}
+  @Get(':name')
+  getWeapons(@Param('name') name: string) {
+    return this.weaponservice.getWeaponParam(name);
   }
 }
