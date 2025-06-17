@@ -1,5 +1,6 @@
 import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
 import { AppService, IronmanService } from './app.service';
+import { CreateHeroDto } from './create-hero.dto';
 
 @Controller()
 export class AppController {
@@ -34,8 +35,8 @@ export class HeroController {
     return `fetching details of : ${heroName}`;
   }
   @Post()
-  createHero(@Body() data: { name: string; power: string }) {
-    return `Created hero ${data.name} with power ${data.power}`;
+  createHero(@Body() body: CreateHeroDto) {
+    return `Created hero with name ${body.name} and power ${body.power}`;
   }
 }
 @Controller('weapons')
