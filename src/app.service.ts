@@ -13,9 +13,24 @@ export class IronmanService {
     return `The suit is ready`;
   }
 }
+// @Injectable()
+// export class WeaponService {
+//   getWeaponParam(name: string) {
+//     return `you requested the weapon:${name}`;
+//   }
+// }
+// Logger service
+@Injectable()
+export class LoggerService {
+  log(message: string): void {
+    console.log(`[LOG]: ${message}`);
+  }
+}
 @Injectable()
 export class WeaponService {
-  getWeaponParam(name: string) {
-    return `you requested the weapon:${name}`;
+  constructor(private readonly logger: LoggerService) {}
+  getWeapons() {
+    this.logger.log('Fetching weapons');
+    return ['mjolnir'];
   }
 }
