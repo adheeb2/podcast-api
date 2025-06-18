@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import { User } from './user.entity';
 import * as bcrypt from 'bcrypt';
 import { resolve } from 'path';
 import { rejects } from 'assert';
+import { error } from 'console';
 
 function getBurger(): Promise<string> {
   return new Promise((resolve, reject) => {
@@ -34,15 +34,58 @@ orderBurger();
 function fetchUser(): Promise<string> {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
-      const success = Math.random() > 0.3;
+      const success = true;
       if (success) {
         resolve('user:adheeb');
       } else {
-        reject(new Error('failed to fetch'));
+        reject(new Error('failed to fetch user'));
       }
     }, 1000);
   });
 }
+
 fetchUser()
   .then((data) => console.log(data))
   .catch((err) => console.log(err));
+
+async function getToken(): Promise<string> {
+  const valid = true;
+  if (!valid) throw new Error('failed to fetch user');
+  return `token`;
+}
+async function validToken() {
+  try {
+    const success = await getToken();
+    console.log(success);
+  } catch (err) {
+    console.log(err);
+  }
+}
+validToken();
+
+// type(we use type because we only need to provide structure,we cant create method or new instance from this,just for reference purpose and can only be seen in compile time and not in runtime,similar to class but can do stuffs that 'type'cannot)
+type User = {
+  id: number;
+  email: string;
+};
+
+function signUp(email: string): Promise<User> {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      if (!email.includes('@')) {
+        return reject(new Error('invalid email format'));
+      }
+      resolve({ id: 1, email });
+    }, 1000);
+  });
+}
+async function register() {
+  try {
+    const success = await signUp('await@email.com');
+    console.log('email', success);
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+register();
