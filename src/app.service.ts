@@ -1,4 +1,4 @@
-import { Injectable, Param } from '@nestjs/common';
+import { Injectable, Injectable, Param } from '@nestjs/common';
 
 @Injectable()
 export class AppService {
@@ -41,11 +41,11 @@ export class UploadService {
       throw new Error('file not found');
     }
     return {
-      filename: file.filename,
+      filename: file.originalname,
       path: file.path,
       mimeType: file.mimetype,
       size: file.size,
-      url: `/uploads/$(file.filename)`,
+      url: `/uploads/${file.filename}`,
     };
   }
 }
