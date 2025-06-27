@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import {
   AppController,
+  FileUploads,
   HeroController,
   WeaponController,
   WeaponSearch,
@@ -9,6 +10,7 @@ import {
   AppService,
   IronmanService,
   LoggerService,
+  UploadService,
   WeaponService,
 } from './app.service';
 import { IronManController } from './/app.controller';
@@ -23,7 +25,14 @@ import { IronManSuitController } from './app.controller';
     HeroController,
     WeaponController,
     WeaponSearch,
+    FileUploads,
   ],
-  providers: [AppService, IronmanService, WeaponService, LoggerService],
+  providers: [
+    AppService,
+    IronmanService,
+    WeaponService,
+    LoggerService,
+    UploadService,
+  ],
 })
 export class AppModule {}

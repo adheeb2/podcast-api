@@ -1,8 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import * as bcrypt from 'bcrypt';
-import { resolve } from 'path';
-import { rejects } from 'assert';
-import { error } from 'console';
+import { Express } from 'express';
+import * as path from 'path';
 
 function getBurger(): Promise<string> {
   return new Promise((resolve, reject) => {
@@ -89,3 +87,5 @@ async function register() {
 }
 
 register();
+
+//File upload

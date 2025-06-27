@@ -33,3 +33,19 @@ export class WeaponService {
     return ['mjolnir'];
   }
 }
+// File upload
+@Injectable()
+export class UploadService {
+  handleSingleFile(file: Express.Multer.File) {
+    if (!file) {
+      throw new Error('file not found');
+    }
+    return {
+      filename: file.filename,
+      path: file.path,
+      mimeType: file.mimetype,
+      size: file.size,
+      url: `/uploads/$(file.filename)`,
+    };
+  }
+}

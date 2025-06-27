@@ -1,6 +1,19 @@
-import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Post,
+  Query,
+  UploadedFile,
+  UseInterceptors,
+} from '@nestjs/common';
+import { diskStorage } from 'multer';
 import { AppService, IronmanService } from './app.service';
 import { CreateHeroDto } from './create-hero.dto';
+import { UploadService } from './app.service';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { extname } from 'path';
 
 @Controller()
 export class AppController {
@@ -66,3 +79,25 @@ export class WeaponSearch {
 //     return this.weaponservice.getWeaponParam('name');
 //   }
 // }
+@Controller('uploads')
+export class FileUploads {
+  constructor(private readonly uploadService: UploadService) {}
+  @Post('single')
+  @UseInterceptors(
+    FileInterceptor('file', {
+      storage: diskStorage({
+        destination: './uploads',
+        filename: (req, file, cb) => {
+          const uniqueSuffix =
+            Date.now() + '-' + Math.round(Math.random() * 1e9);
+          const ext = extname(file.originalname);
+          cb(null, `${file.fieldname}-${uniqueSuffix}${ext}`);
+        },
+      }),
+      limits: { fileSize: 5 * 1024 * 1024 }, // 5MB
+    }),
+  )
+  async uploadSingle(@UploadedFile() file: Express.Multer.File) {
+    return this.uploadService.handleSingleFile(file);
+  }
+}
